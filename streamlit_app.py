@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import colorsys
 
 st.title("🐇 Rabbits and Foxes 🦊")
 st.write(
@@ -20,9 +21,9 @@ time_step = 0.1
 counts = [] # [x, y] at time = index
 counts.append([rabbits, foxes]) # initialize
 
-N = 1000 # number of time steps
+N = 2000 # number of time steps
 
-for t in range(1, N + 1):
+for t in range(1, N):
     
     rabbits += (rabbits_reproduction_rate * rabbits - predation_rate * foxes * rabbits) * time_step
     foxes += (-fox_death_rate * foxes + fox_reproduction_rate * foxes * rabbits) * time_step
@@ -36,9 +37,14 @@ for t in range(1, N + 1):
     counts.append([rabbits, foxes])
 
 counts_df = pd.DataFrame(counts, columns=['rabbits', 'foxes'])
+counts_df['time'] = [i for i in range(N)]
+# counts_df['color'] = [colorsys.hsv_to_rgb(i / N, 1.0, 1.0) for i in range(N)]
+counts_df['color'] = counts_df['time'] / N
 st.dataframe(counts_df)
 
-st.scatter_chart(counts_df, x='rabbits', y='foxes')
+st.scatter_chart(counts_df, x='rabbits', y='foxes', color='color')
+
+
 
 
 
