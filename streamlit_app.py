@@ -42,8 +42,17 @@ counts_df['time'] = [i for i in range(N)]
 counts_df['color'] = counts_df['time'] / N
 st.dataframe(counts_df)
 
-st.scatter_chart(counts_df, x='rabbits', y='foxes', color='color')
+min_value = 0
+max_value = N
+start_value = N // 2
+step_size = 10
+t = st.slider("Time",
+              min_value=min_value,
+              max_value=max_value,
+              step=step_size,
+              value=start_value)
 
+st.scatter_chart(counts_df.iloc[:t, :], x='rabbits', y='foxes', color='color')
 
 
 
