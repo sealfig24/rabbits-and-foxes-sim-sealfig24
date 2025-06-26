@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import colorsys
+import altair as alt
 
 st.title("🐇 Rabbits and Foxes 🦊")
 st.write(
@@ -82,7 +83,13 @@ t = st.slider("Time",
               min_value=min_value,
               max_value=max_value,
               step=step_size,
-              value=start_value)
+              value=start_value,
+              on_change=change_t,
+              args=(new_t, new_t + 1)
+              )
+
+
+
 
 st.scatter_chart(counts_df.iloc[:t, :],
                  x='rabbits', y='foxes',
