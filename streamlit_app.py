@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import colorsys
+import altair as alt
 
 st.title("🐇 Rabbits and Foxes 🦊")
 st.write(
@@ -46,15 +47,42 @@ min_value = 0
 max_value = N
 start_value = N // 2
 step_size = 10
-t = st.slider("Time",
+
+slider_t = start_value
+
+def change_t(x, y):
+    global slider_t
+    print(x)
+    print(y)
+    # slider_t = x
+    # st.scatter_chart(counts_df.iloc[:t, :], x='rabbits', y='foxes', color='color')
+
+new_t = 0
+new_t = st.slider("Time",
               min_value=min_value,
               max_value=max_value,
               step=step_size,
-              value=start_value)
+              value=start_value,
+              on_change=change_t,
+              args=(new_t, new_t + 1)
+              )
 
-st.scatter_chart(counts_df.iloc[:t, :], x='rabbits', y='foxes', color='color')
 
 
+
+# slider = alt.binding_range(min=0, max=N, step=10)
+# cutoff = alt.param(bind=slider, value=start_value)
+# predicate = alt.datum.time <= cutoff
+
+# st.altair_chart(
+#     alt.Chart(counts_df).mark_point().encode(
+#         x='rabbits',
+#         y='foxes',
+#         color=alt.when(predicate).then(alt.value("red")).otherwise(alt.value("blue")),
+#     ).add_params(
+#         cutoff
+#     )
+# )
 
 
 
