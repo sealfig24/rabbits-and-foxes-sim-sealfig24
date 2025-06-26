@@ -83,12 +83,8 @@ t = st.slider("Time",
               min_value=min_value,
               max_value=max_value,
               step=step_size,
-              value=start_value,
-              on_change=change_t,
-              args=(new_t, new_t + 1)
+              value=start_value
               )
-
-
 
 
 st.scatter_chart(counts_df.iloc[:t, :],
