@@ -9,7 +9,6 @@ st.write(
 )
 
 
-
 # st.slider("Rating", min_value=1, max_value=10, step=1, key="rating")
 # st.session_state["rating"]
 
